@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta content="ESI-Bench: Towards Embodied Spatial Intelligence that Closes the Perception–Action Loop" name="description"/>
+<meta content="ESI-Bench: Towards Embodied Spatial Intelligence" property="og:title"/>
+<meta content="A comprehensive benchmark for embodied spatial intelligence." property="og:description"/>
+<meta content="static/imgs/paper_figures/esi_teaser_v11_page-0001.jpg" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="ESI-Bench" name="twitter:title"/>
+<meta content="Towards Embodied Spatial Intelligence that Closes the Perception–Action Loop" name="twitter:description"/>
+<meta content="static/imgs/paper_figures/esi_teaser_v11_page-0001.jpg" name="twitter:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Embodied Spatial Intelligence, Benchmark, MLLM, Perception-Action Loop" name="keywords"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>ESI-Bench: Towards Embodied Spatial Intelligence that Closes the Perception–Action Loop</title>
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/css/bulma-carousel.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
+<style>
+    :root {
+      --brand: rgb(100, 140, 230);
+      --brand-light: rgb(130, 165, 255);
+      --accent: rgb(232, 165, 21);
+      --accent2: rgb(40, 158, 222);
+      --bg: #0a0a0f;
+      --bg-alt: #111118;
+      --bg-card: #16161f;
+      --bg-card2: #1c1c28;
+      --border: #2a2a3a;
+      --text: #d8d8e8;
+      --text-muted: #8888a8;
+      --text-strong: #eeeef8;
+    }
+    html, body {
+      background-color: var(--bg) !important;
+      color: var(--text) !important;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .hero { background-color: var(--bg) !important; }
+    .hero.is-light, .section.hero.is-light { background-color: var(--bg-alt) !important; }
+    .title, .subtitle { color: var(--text-strong) !important; }
+    .content { color: var(--text) !important; }
+    p, li { color: var(--text); }
+    a { color: var(--brand) !important; }
+    a:hover { color: var(--brand-light) !important; text-decoration: underline; }
+
+    .small-caps { font-variant: small-caps; letter-spacing: 0.05em; }
+    .publication-title, .title, .subtitle { font-family: 'Google Sans', 'Noto Sans', sans-serif; }
+    .publication-title { margin-bottom: 1rem !important; }
+    .publication-subtitle { color: var(--text-muted) !important; margin-bottom: 1.5rem !important; }
+    .publication-authors { margin-bottom: 0.75rem; }
+    .publication-authors .author-block {
+      margin-right: 0.4rem;
+      color: var(--text);
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .publication-authors a { color: var(--brand) !important; }
+    .publication-authors sup { color: var(--accent); font-weight: 600; }
+
+    .publication-links { margin-top: 1rem; }
+    .publication-links .link-block { margin: 0 4px; }
+    .publication-links .button.is-dark {
+      background-color: #1e1e2e;
+      border: 1px solid var(--border);
+      color: var(--text-strong);
+    }
+    .publication-links .button.is-dark:hover {
+      background-color: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+    .publication-links .button.is-dark.is-disabled,
+    .publication-links .button.is-dark[disabled] {
+      background-color: #2a2a3a;
+      cursor: not-allowed;
+      color: var(--text-muted);
+    }
+
+    .teaser-figure {
+      max-width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .figure-caption {
+      max-width: 90%;
+      margin: 1rem auto 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-align: justify;
+    }
+    .figure-caption b { color: var(--text-strong); }
+
+    section.section {
+      padding: 3rem 1.5rem;
+      background-color: var(--bg);
+    }
+    .section.hero.is-light { background-color: var(--bg-alt) !important; }
+
+    .tldr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .tldr-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+      border-top: 4px solid var(--brand);
+    }
+    .tldr-card .k {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--brand);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .tldr-card h4 {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: var(--text-strong);
+    }
+    .tldr-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.55; margin: 0; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .stat { padding: 1.6rem 1rem; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat .v {
+      display: block;
+      font-family: 'Google Sans', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--brand);
+      line-height: 1.1;
+    }
+    .stat .l {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    .finding {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--brand);
+      border-radius: 8px;
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+    .finding-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.9rem;
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px dashed var(--border);
+    }
+    .finding-head .idx {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--brand);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .finding-head h3 {
+      font-family: 'Google Sans', sans-serif;
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-strong);
+    }
+    .finding ul { margin: 0.5rem 0 0 1.2rem; padding: 0; }
+    .finding li { margin-bottom: 0.4rem; color: var(--text); font-size: 0.97rem; line-height: 1.6; }
+    .finding li:last-child { margin-bottom: 0; }
+    .hl { background: rgba(232,165,21,0.15); color: var(--accent); padding: 1px 4px; border-radius: 2px; }
+
+    .paper-figs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .paper-fig {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .paper-fig:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .paper-fig img { width: 100%; display: block; border-bottom: 1px solid var(--border); background: #0d0d15; }
+    .paper-fig .txt { padding: 1rem 1.2rem; text-align: left; }
+    .paper-fig h3 {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 0.3rem;
+      color: var(--brand);
+    }
+    .paper-fig p { margin: 0; font-size: 0.92rem; color: var(--text-muted); line-height: 1.5; }
+
+    .task { margin: 2rem 0 2.5rem; text-align: left; }
+    .task-head {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .task-num {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.82rem;
+      color: var(--brand);
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border: 1px solid var(--brand);
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .task-title {
+      font-family: 'Google Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--text-strong);
+      margin: 0;
+    }
+    .task-desc { font-size: 0.9rem; color: var(--text-muted); margin-left: auto; font-style: italic; }
+    .task-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, 1fr); }
+    .task-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .task-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      border-color: var(--brand);
+    }
+    .task-card img, .task-card video {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      background: #0d0d15;
+    }
+    .task-card .txt { padding: 0.8rem 1rem; }
+    .task-card .txt h3 {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+      color: var(--brand);
+    }
+    .task-card .txt p { margin: 0; font-size: 0.86rem; color: var(--text-muted); line-height: 1.45; }
+
+    .mini-carousel { position: relative; }
+    .mini-carousel .slides img { display: none; }
+    .mini-carousel .slides img.active { display: block; }
+    .mini-carousel .ctrl { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; }
+    .mini-carousel button {
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(10,10,20,.85);
+      color: var(--text-strong);
+      border-radius: 999px;
+      width: 26px; height: 26px;
+      font-size: .9rem;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .15s ease;
+    }
+    .mini-carousel button:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .mini-carousel .dots { position: absolute; left: 8px; bottom: 8px; display: flex; gap: 5px; }
+    .mini-carousel .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .mini-carousel .dot.active { background: var(--brand); border-color: var(--brand); }
+
+    .table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: auto;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+      margin: 1.25rem 0 0.75rem;
+    }
+    table.results {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 0.9rem;
+      min-width: 680px;
+    }
+    table.results th, table.results td {
+      padding: 11px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    table.results thead th {
+      background: var(--bg-card2);
+      font-family: 'Google Sans', sans-serif;
+      font-weight: 600;
+      color: var(--text-strong);
+      border-bottom: 2px solid var(--border);
+      font-size: 0.85rem;
+    }
+    table.results td.num { font-family: 'Google Sans', sans-serif; text-align: right; }
+    table.results tbody tr:hover { background: var(--bg-card2); }
+    table.results .row-label { font-weight: 500; color: var(--text-strong); }
+    table.results .best { color: var(--brand); font-weight: 700; }
+
+    #BibTeX pre {
+      background: #0d0d15;
+      color: #c8c8e0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.4rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.86rem;
+      line-height: 1.6;
+      overflow: auto;
+    }
+    #BibTeX pre code { background: transparent; color: inherit; padding: 0; }
+
+    .footer {
+      background-color: var(--bg-alt) !important;
+      padding: 2rem 1.5rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer p { color: var(--text-muted) !important; }
+    .footer a { color: var(--brand) !important; }
+
+    .navbar { background-color: var(--bg) !important; }
+    .is-size-5 { color: var(--text) !important; }
+    b, strong { color: var(--text-strong) !important; }
+
+    /* Category buttons */
+    .cat-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .cat-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.9rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-muted);
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all .18s ease;
+      white-space: nowrap;
+    }
+    .cat-btn:hover {
+      border-color: var(--brand);
+      color: var(--text-strong);
+    }
+    .cat-btn.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+    .cat-btn .cat-num {
+      font-size: 0.7rem;
+      opacity: 0.75;
+      letter-spacing: 0.05em;
+    }
+    .cat-btn.active .cat-num { opacity: 1; }
+
+    /* Category panels */
+    .cat-panel { display: none; text-align: left; }
+    .cat-panel.active { display: block; }
+    .cat-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .tldr-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--border); }
+      .paper-figs { grid-template-columns: 1fr; }
+      .task-grid { grid-template-columns: repeat(2, 1fr); }
+      .task-desc { display: none; }
+    }
+    @media (max-width: 640px) {
+      .task-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<!-- =============== HEADER / HERO =============== -->
+<section class="hero">
+<div class="hero-body">
+<div class="container is-max-desktop">
+<div class="columns is-centered">
+<div class="column has-text-centered">
+<h1 class="title is-1 publication-title">
+<span class="small-caps" style="color: var(--brand)">ESI-Bench:</span>
+</h1>
+<h2 class="subtitle is-3 publication-subtitle">
+            Towards Embodied Spatial Intelligence that Closes the Perception–Action Loop
+          </h2>
+<div class="publication-authors" style="font-size: 0.95rem; white-space: nowrap; overflow-x: auto;">Anonymous Author(s)</div>
+<div class="publication-authors" style="font-size: 0.82rem; color: var(--text-muted);">Anonymous Institution(s)</div>
+<div class="column has-text-centered">
+<div class="publication-links">
+<span class="link-block">
+<a class="external-link button is-normal is-rounded is-dark" href="paper.pdf" target="_blank">
+<span class="icon"><i class="fas fa-file-pdf"></i></span>
+<span>Paper</span>
+</a>
+</span>
+<span class="link-block">
+<a class="external-link button is-normal is-rounded is-dark" href="#" rel="noopener" target="_self">
+<span class="icon"><i class="fab fa-github"></i></span>
+<span>Code (Anonymous)</span>
+</a>
+</span>
+<span class="link-block">
+<a class="external-link button is-normal is-rounded is-dark" href="#" rel="noopener" target="_self">
+<span class="icon"><i class="fas fa-database"></i></span>
+<span>Dataset</span>
+</a>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =============== VIDEO =============== -->
+<section class="section" style="padding: 2rem 1.5rem;">
+<div class="container is-max-desktop">
+<p style="
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+      color: var(--text);
+      opacity: 0.85;
+    ">
+      🔊 Click the video to turn on sound for the full demo experience
+    </p>
+<div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+<iframe allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" src="https://www.youtube.com/embed/ZCxN3y_Ku7Q?autoplay=1&amp;mute=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+</iframe>
+</div>
+</div>
+</section>
+<!-- =============== ABSTRACT =============== -->
+<section class="section hero is-light">
+<div class="container is-max-desktop">
+<div class="columns is-centered has-text-centered">
+<div class="column is-11">
+<h2 class="title is-3">Abstract</h2>
+<div class="content has-text-justified">
+<p style="font-size: 1rem; line-height: 1.75; color: var(--text);">
+            Spatial intelligence unfolds through a perception–action loop: agents act to acquire observations,
+            and reason about how observations vary as a function of action. Rather than passively processing
+            what is seen, they actively uncover what is unseen — occlusion, dynamics, containment, and
+            functionality — beyond the reach of passive sensing.
+            We take a step beyond prior formulations of spatial intelligence, which often emphasize passive
+            perception or assume access to oracle observations, by recasting the observer as an actor.
+            We introduce ESI-Bench, a comprehensive benchmark for embodied spatial intelligence
+            spanning 10 task categories and 29 subcategories built on OmniGibson, grounded in
+            Spelke's core knowledge systems. Agents must decide what abilities to deploy — perception,
+            locomotion, and manipulation — and how to act to answer questions that cannot be resolved
+            from passive observation alone.
+            We conduct extensive experiments on state-of-the-art MLLMs and find that
+            active exploration substantially outperforms passive counterparts, with agents
+            spontaneously discovering emergent spatial strategies without explicit instruction, while
+            passive multi-view adds noise rather than signal despite consuming far more images. Most
+            failures stem not from weak perception but from action blindness, and their coupling
+            drives cascading failures where bad actions produce bad views which produce worse actions.
+            While explicit 3D grounding stabilizes reasoning on depth-sensitive tasks, imperfect
+            reconstruction proves more harmful than 2D baselines by actively distorting spatial relations.
+            Human studies further reveal that, unlike humans who seek falsifying viewpoints and revise
+            beliefs under contradiction, models commit prematurely with high confidence regardless of
+            evidence quality, exposing a metacognitive gap that neither better perception nor more
+            embodied interaction alone can close.
+          </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =============== TEASER =============== -->
+<section class="hero teaser">
+<div class="container is-max-desktop">
+<div class="hero-body" style="display: flex; flex-direction: column; align-items: center;">
+<img alt="ESI-Bench teaser: 10 task categories and 29 subcategories" class="teaser-figure" src="static/imgs/paper_figures/teaser_black.webp"/>
+<p class="figure-caption">
+        ESI-Bench is a comprehensive benchmark for embodied spatial intelligence,
+        spanning <b>10 task categories</b> and <b>29 subcategories</b> organized around Spelke's four
+        core knowledge systems [Spelke &amp; Kinzler, 2007]: <span style="color: rgb(210,130,50); font-weight:500;">object representation</span>, <span style="color: rgb(150,100,195); font-weight:500;">layout and geometry</span>,
+        <span style="color: rgb(70,140,220); font-weight:500;">number representation</span>, and <span style="color: rgb(60,170,140); font-weight:500;">agents and goal-directed actions</span>.
+      </p>
+</div>
+</div>
+</section>
+<!-- =============== STATS =============== -->
+<section class="section">
+<div class="container is-max-desktop">
+<div class="stats-row" style="grid-template-columns: repeat(3, 1fr); max-width: 700px;">
+<div class="stat"><span class="v">10</span><span class="l">Task Categories</span></div>
+<div class="stat"><span class="v">29</span><span class="l">Subcategories</span></div>
+<div class="stat"><span class="v">3,081</span><span class="l">Task Instances</span></div>
+</div>
+</div>
+</section>
+<!-- =============== TASK TAXONOMY =============== -->
+<section class="section hero is-light">
+<div class="container is-max-desktop">
+<div class="columns is-centered has-text-centered">
+<div class="column is-11">
+<h2 class="title is-3">Task Taxonomy</h2>
+<p class="figure-caption" style="margin-bottom: 2rem;">
+          Each category targets a distinct spatial faculty <i>structurally inaccessible to passive sensing</i>.
+          Across all categories, the correct answer emerges not from any single image but from the agent's
+          capacity to act selectively and reason over the result.
+        </p>
+<!-- Category buttons -->
+<div class="cat-buttons">
+<button class="cat-btn active" data-cat="0"><span class="cat-num">01</span>Physical Capacity</button>
+<button class="cat-btn" data-cat="1"><span class="cat-num">02</span>Physical Dynamics</button>
+<button class="cat-btn" data-cat="2"><span class="cat-num">03</span>Specular Reflection</button>
+<button class="cat-btn" data-cat="3"><span class="cat-num">04</span>Perceptual Grounding</button>
+<button class="cat-btn" data-cat="4"><span class="cat-num">05</span>Metric Comparison</button>
+<button class="cat-btn" data-cat="5"><span class="cat-num">06</span>Enumerative Perception</button>
+<button class="cat-btn" data-cat="6"><span class="cat-num">07</span>Spatial Relations</button>
+<button class="cat-btn" data-cat="7"><span class="cat-num">08</span>Cognitive Mapping</button>
+<button class="cat-btn" data-cat="8"><span class="cat-num">09</span>Temporal Scene</button>
+<button class="cat-btn" data-cat="9"><span class="cat-num">10</span>Action Sequencing</button>
+</div>
+<!-- Category panels -->
+<div class="cat-panel active" data-panel="0">
+<p class="cat-desc">Manipulation reveals containment capacity hidden from view.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/physical_capacity/rigid.mov"></video><div class="txt"><h3>Rigid Containment</h3><p>Plan placement of multiple objects across multiple containers.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/physical_capacity/liquid.mp4"></video><div class="txt"><h3>Liquid Volume</h3><p>Compare liquid-holding capacity across containers.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/physical_capacity/deformable.mp4"></video><div class="txt"><h3>Deformable Fitting</h3><p>Decide whether a deformable container conforms to an object.</p></div>
+</article>
+</div>
+</div>
+<div class="cat-panel" data-panel="1">
+<p class="cat-desc">Predict motion and stability under shape, mass, geometry.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/physical_dynamics/inclined.mp4"></video><div class="txt"><h3>Inclined Plane</h3><p>Predict object motion and stability on slopes.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/physical_dynamics/stability.mov"></video><div class="txt"><h3>Stacking &amp; Stability</h3><p>Whether objects stack or balance given shape, mass, and geometry.</p></div></article>
+</div>
+</div>
+<div class="cat-panel" data-panel="2">
+<p class="cat-desc">Active repositioning to disambiguate mirror vs. real-world content.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/specular_reflection/reflection_authenticity.mp4"></video><div class="txt"><h3>Reflection Authoring</h3><p>Distinguish real objects from mirror reflections.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/specular_reflection/reflection_spatial_relation.mp4"></video><div class="txt"><h3>Spatial Relations</h3><p>Infer relations across mirror and real-world views.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/specular_reflection/scene_correspondence.mp4"></video><div class="txt"><h3>Correspondence</h3><p>Identify which objects appear in the mirror given the real scene.</p></div></article>
+</div>
+</div>
+<div class="cat-panel" data-panel="3">
+<p class="cat-desc">Repositioning to resolve viewpoint-dependent phenomena.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/perceptual_grounding/partial_occlusion.mp4"></video><div class="txt"><h3>Partial Occlusion</h3><p>Reason about objects hidden behind other scene elements.</p></div>
+</article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/perceptual_grounding/view_hallucination.mp4"></video><div class="txt"><h3>View Hallucination</h3><p>Detect objects whose visibility changes critically with viewing angle.</p></div>
+</article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/perceptual_grounding/transparent.mp4"></video><div class="txt"><h3>Material Transparency</h3><p>Reason about objects seen through transparent surfaces.</p></div>
+</article>
+</div>
+</div>
+<div class="cat-panel" data-panel="4">
+<p class="cat-desc">Locomotion to overcome forced-perspective distortions.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/metric_comparison/dimensional_size.mp4"></video><div class="txt"><h3>Dimensional Size</h3><p>Compare relative sizes of objects across vantage points.</p></div>
+</article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/metric_comparison/spatial_distance.mp4"></video><div class="txt"><h3>Spatial Distance</h3><p>Compare relative distances with respect to a reference object.</p></div>
+</article>
+</div>
+</div>
+<div class="cat-panel" data-panel="5">
+<p class="cat-desc">Counting under occlusion, segmentation, and ambiguity.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/enumerative_perception/counting_w_occlusion.mp4"></video><div class="txt"><h3>Counting w/ Occlusion</h3><p>Count objects partially obscured by other scene elements.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/enumerative_perception/spatial_segmentation.mp4"></video><div class="txt"><h3>Spatial Segmentation</h3><p>Count objects separated across distinct spatial regions.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/enumerative_perception/category_disambiguation.mp4"></video><div class="txt"><h3>Category Ambiguity</h3><p>Count visually similar objects requiring fine-grained distinction.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/enumerative_perception/merged_observation.mp4"></video><div class="txt"><h3>Merged Observation</h3><p>Count groups that appear visually merged from a single view.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/enumerative_perception/illumination_variability.mp4"></video><div class="txt"><h3>Illumination Variability</h3><p>Count objects under challenging or non-uniform lighting.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/enumerative_perception/structural_enclosure.mp4"></video><div class="txt"><h3>Structural Enclosure</h3><p>Count objects hidden within enclosed or covered spaces.</p></div></article>
+</div>
+</div>
+<div class="cat-panel" data-panel="6">
+<p class="cat-desc">Navigation to vantage points that break projective symmetry.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/spatial_relations/linear_alignment.mov"></video><div class="txt"><h3>Linear Alignment</h3><p>Whether objects are arranged along a common axis.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/spatial_relations/geometric_configuration.mov"></video><div class="txt"><h3>Geometric Configuration</h3><p>Identify the shape formed by a set of objects (e.g., equilateral triangle).</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/spatial_relations/physical_contact.mp4"></video><div class="txt"><h3>Physical Contact</h3><p>Detect whether two or more objects are in direct contact.</p></div></article>
+</div>
+</div>
+<div class="cat-panel" data-panel="7">
+<p class="cat-desc">Multi-step locomotion to construct topological representations.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/cognitive_mapping/topological_connectivity.mp4"></video><div class="txt"><h3>Topology &amp; Connectivity</h3><p>Whether two locations or regions are mutually reachable.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/cognitive_mapping/traversable_passage.mp4"></video><div class="txt"><h3>Traversable Passage</h3><p>Identify navigable corridors or passageways between regions.</p></div>
+</article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/cognitive_mapping/regional_boundary.mp4"></video><div class="txt"><h3>Regional Boundary</h3><p>Identify and delineate distinct functional spatial regions.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/cognitive_mapping/long-horizon_navigation.mp4"></video><div class="txt"><h3>Long-Term Navigation</h3><p>Plan multi-step navigation toward a distant goal.</p></div>
+</article>
+</div>
+</div>
+<div class="cat-panel" data-panel="8">
+<p class="cat-desc">Manipulation and interaction to trigger or observe state changes.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/temporal_scene_understanding/unobserved_changes.mp4"></video><div class="txt"><h3>Unobserved State Change</h3><p>Infer scene changes that occurred during an unobserved interval.</p></div></article>
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/temporal_scene_understanding/multi-agent_interaction.mp4"></video><div class="txt"><h3>Multi-Agent Interaction</h3><p>Reason about scene dynamics induced by other agents.</p></div></article>
+</div>
+</div>
+<div class="cat-panel" data-panel="9">
+<p class="cat-desc">Reasoning over ordered actions to determine causal dependencies.</p>
+<div class="task-grid">
+<article class="task-card"><video autoplay="" loop="" muted="" playsinline="" src="static/imgs/action_sequencing/action_order_inference.mov"></video><div class="txt"><h3>Action Order Inference</h3><p>Determine the correct procedural ordering of an action sequence.</p></div></article>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =============== TL;DR =============== -->
+<section class="section hero is-light">
+<div class="container is-max-desktop">
+<div class="columns is-centered has-text-centered">
+<div class="column is-11">
+<h2 class="title is-3">Three Departures from Prior Spatial Benchmarks</h2>
+<div class="tldr-grid">
+<div class="tldr-card">
+<div class="k">01</div>
+<h4>From sensing to competence</h4>
+<p>Agents are evaluated not only on what they can perceive, but on whether they know <i>how to act</i> to perceive it — closing the loop between observation and action.</p>
+</div>
+<div class="tldr-card">
+<div class="k">02</div>
+<h4>Selective sensing</h4>
+<p>Agents must determine which observations are worth acquiring, prioritizing task-relevant information over redundant or uninformative inputs.</p>
+</div>
+<div class="tldr-card">
+<div class="k">03</div>
+<h4>Resolving perceptual mirages</h4>
+<p>Agents must reason through incomplete or misleading observations to infer hidden spatial structures and physical constraints beyond what is directly observed.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: 0.55fr 0.45fr; gap: 1.25rem; margin-top: 1.5rem;">
+<img alt="Task Distribution" src="static/imgs/paper_figures/task_distribution3.png" style="width:100%; border-radius:10px;"/>
+<img alt="Radar Chart" src="static/imgs/paper_figures/radar_chart.png" style="width:100%; border-radius:10px;"/>
+</div>
+</div>
+</section>
+<!-- =============== KEY FINDINGS =============== -->
+<section class="section">
+<div class="container is-max-desktop">
+<div class="columns is-centered has-text-centered">
+<div class="column is-11">
+<h2 class="title is-3">Key Findings</h2>
+<div class="finding">
+<div class="finding-head">
+<span class="idx">Finding 1</span>
+<h3>Action blindness dominates perceptual blindness — and their coupling drives failure cascades.</h3>
+</div>
+<ul>
+<li>Without explicit instruction, active agents <span class="hl">spontaneously discover emergent spatial strategies</span> (e.g., move-behind, top-down repositioning, pick-up, pour-out) — driving large gains over passive baselines.</li>
+<li>For most tasks, perception is not the bottleneck: with the right viewpoint, models succeed dramatically (e.g., Gemini 3.1 jumps from <b>14.6% → 95.1%</b> on Partial Occlusion under oracle views).</li>
+<li>Passive multi-view <b>adds noise, not signal</b>: GPT-5 even drops from 53.9% to 49.1% on Spatial Distance despite consuming far more images.</li>
+<li>Suboptimal actions produce uninformative views, which trigger worse subsequent actions — a compounding chain unrecoverable within the step budget (active-to-oracle gap reaches <b>49.7%</b> on Structural Enclosure).</li>
+</ul>
+<div style="margin-top: 1.25rem;">
+<p style="font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); font-family: 'Google Sans', sans-serif; font-weight: 600; margin-bottom: 0.85rem;">Emergent Capabilities: <span style="color: var(--text-strong); text-transform: none; letter-spacing: normal; font-weight: 400;">Is the chestnut in the glass?</span></p>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+<div style="text-align: center;">
+<video autoplay="" loop="" muted="" playsinline="" src="static/vids/qualitative/top_down.mp4" style="width:100%; border-radius:8px; background:#0d0d15;"></video>
+<p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Top Down</p>
+</div>
+<div style="text-align: center;">
+<video autoplay="" loop="" muted="" playsinline="" src="static/vids/qualitative/move_behind.mp4" style="width:100%; border-radius:8px; background:#0d0d15;"></video>
+<p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Move Behind</p>
+</div>
+<div style="text-align: center;">
+<video autoplay="" loop="" muted="" playsinline="" src="static/vids/qualitative/pick_up.mov" style="width:100%; border-radius:8px; background:#0d0d15;"></video>
+<p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Pick Up</p>
+</div>
+<div style="text-align: center;">
+<video autoplay="" loop="" muted="" playsinline="" src="static/vids/qualitative/pour_down.mp4" style="width:100%; border-radius:8px; background:#0d0d15;"></video>
+<p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Pour Down</p>
+</div>
+</div>
+</div>
+</div>
+<div class="finding">
+<div class="finding-head">
+<span class="idx">Finding 2</span>
+<h3>3D helps when geometry is perfect — imperfect reconstruction actively misleads.</h3>
+</div>
+<ul>
+<li>Ground-truth 3D + Gemini reaches <b>60.4%</b> on Material Transparency vs. 44.0% for 2D Gemini — a +16.4 pt improvement on tasks where 2D projections fundamentally lose depth.</li>
+<li>VGGT-reconstructed scene graphs <span class="hl">degrade performance below 2D baselines</span>: 9.9% vs. 27.5% on Geometric Configuration, as geometric artifacts distort fine-grained spatial relations.</li>
+<li>Imperfect 3D grounding is not a neutral failure — it amplifies errors by feeding the reasoner a corrupted scene graph.</li>
+</ul>
+</div>
+<div class="finding">
+<div class="finding-head">
+<span class="idx">Finding 3</span>
+<h3>Models can see — but do not know when they have seen enough.</h3>
+</div>
+<ul>
+<li>Humans seek viewpoints that <i>falsify</i> their hypothesis; models seek confirmation and tend to repeat motions in the same direction.</li>
+<li>Models commit prematurely with uniformly high confidence, anchoring to first impressions and <span class="hl">ignoring contradictory observations</span>.</li>
+<li>This is a <b>metacognitive failure</b>, not a perceptual one: neither better perception nor more embodied interaction alone closes the gap.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =============== RESULTS ===============
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-11">
+        <h2 class="title is-3">Results — Active vs. Passive vs. Oracle</h2>
+        <div class="table-wrap">
+          <table class="results">
+            <thead>
+              <tr>
+                <th>Subcategory (GPT-5)</th>
+                <th class="num">Passive Single</th>
+                <th class="num">Passive Multi</th>
+                <th class="num">Active</th>
+                <th class="num">GT Passive</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="row-label">Partial Occlusion</td><td class="num">30.5</td><td class="num">32.9</td><td class="num">62.4</td><td class="num best">91.5</td></tr>
+              <tr><td class="row-label">View Hallucination</td><td class="num">11.7</td><td class="num">20.2</td><td class="num">60.1</td><td class="num best">87.8</td></tr>
+              <tr><td class="row-label">Material Transparency</td><td class="num">30.3</td><td class="num">36.7</td><td class="num">66.1</td><td class="num best">96.3</td></tr>
+              <tr><td class="row-label">Rigid Containment</td><td class="num">45.0</td><td class="num">42.5</td><td class="num">42.5</td><td class="num best">95.0</td></tr>
+              <tr><td class="row-label">Stacking &amp; Stability</td><td class="num">34.8</td><td class="num">37.1</td><td class="num">62.9</td><td class="num best">86.5</td></tr>
+              <tr><td class="row-label">Counting w/ Occlusion</td><td class="num">3.3</td><td class="num">3.3</td><td class="num">13.3</td><td class="num best">56.7</td></tr>
+              <tr><td class="row-label">Structural Enclosure</td><td class="num">5.0</td><td class="num">10.0</td><td class="num">22.5</td><td class="num best">67.5</td></tr>
+              <tr><td class="row-label">Physical Contact</td><td class="num">40.0</td><td class="num">41.7</td><td class="num">64.2</td><td class="num best">90.0</td></tr>
+              <tr><td class="row-label">Dimensional Size</td><td class="num">42.5</td><td class="num">44.9</td><td class="num">67.7</td><td class="num best">80.3</td></tr>
+              <tr><td class="row-label">Unobserved Change</td><td class="num">40.5</td><td class="num">41.2</td><td class="num">51.4</td><td class="num best">77.0</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="figure-caption">
+          <b>Table 1.</b> Accuracy (%) of GPT-5 across four paradigms on representative subcategories.
+          <b>Active</b> exploration consistently outperforms passive multi-view; the large remaining gap to
+          <b>GT Passive</b> isolates failures of action selection from failures of perception.
+          Full results across all 29 subcategories and 4 paradigms (GPT-5, Gemini 3.1, VGGT+Gemini, GT 3D+Gemini, Human) appear in the paper.
+        </p>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- =============== BIBTEX =============== -->
+<section class="section" id="BibTeX" style="padding-top: 2rem; padding-bottom: 0;">
+<div class="container is-max-desktop">
+<div class="columns is-centered">
+<div class="column is-11">
+<h2 class="title is-5" style="margin-bottom: 0.75rem;">Citation</h2>
+<pre style="background:#0d0d15; color:#c8c8e0; border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.4rem; font-family:'Courier New',monospace; font-size:0.78rem; line-height:1.6; overflow:auto; text-align:left;"><code>@article{anonymous2026esibench,
+  title     = {{ESI-Bench}: Towards Embodied Spatial Intelligence that Closes the Perception-Action Loop},
+  author    = {Anonymous},
+  journal   = {arXiv preprint},
+  year      = {2026},
+}</code></pre>
+</div>
+</div>
+</div>
+</section>
+<!-- =============== FOOTER =============== -->
+<footer class="footer">
+<div class="container">
+<div class="columns is-centered">
+<div class="column is-8 has-text-centered">
+<div class="content">
+<p>
+            © 2026 ESI-Bench. Preprint companion page. ·
+            <a href="#" rel="noopener" target="_self">Anonymous project page</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+  // Category tab switching
+  document.querySelectorAll('.cat-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`.cat-panel[data-panel="${cat}"]`).classList.add('active');
+    });
+  });
+
+  // Mini carousels
+  document.querySelectorAll('[data-carousel]').forEach((c) => {
+    const imgs = [...c.querySelectorAll('.slides img')];
+    const dots = [...c.querySelectorAll('.dot')];
+    let i = 0;
+    const show = (n) => {
+      i = (n + imgs.length) % imgs.length;
+      imgs.forEach((im, k) => im.classList.toggle('active', k === i));
+      dots.forEach((d, k) => d.classList.toggle('active', k === i));
+    };
+    c.querySelector('[data-prev]')?.addEventListener('click', () => show(i - 1));
+    c.querySelector('[data-next]')?.addEventListener('click', () => show(i + 1));
+  });
+</script>
+</body>
+</html>
