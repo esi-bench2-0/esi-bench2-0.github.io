@@ -449,7 +449,7 @@
 <div class="column has-text-centered">
 <div class="publication-links">
 <span class="link-block">
-<a class="external-link button is-normal is-rounded is-dark" href="paper.pdf" target="_blank">
+<a id="paper-link" class="external-link button is-normal is-rounded is-dark" href="paper.pdf" target="_self" rel="noreferrer">
 <span class="icon"><i class="fas fa-file-pdf"></i></span>
 <span>Paper</span>
 </a>
@@ -838,6 +838,12 @@
 </div>
 </footer>
 <script>
+  // Use the raw PDF endpoint on the anonymous site, avoiding the sandboxed /w/ PDF route.
+  // Same-tab navigation also avoids inheriting the website sandbox in a new window.
+  if (window.location.hostname === 'anonymous.4open.science') {
+    document.getElementById('paper-link').href = '/api/repo/esi-bench2-0/file/paper.pdf';
+  }
+
   // Category tab switching
   document.querySelectorAll('.cat-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
