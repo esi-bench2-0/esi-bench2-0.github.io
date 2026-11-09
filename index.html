@@ -423,6 +423,75 @@ b, strong {
 @media (max-width: 640px) {
   .task-grid { grid-template-columns: 1fr; }
 }
+
+/* Real-world experimental demonstrations */
+.real-world-intro {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+.real-world-experiments {
+  display: grid;
+  gap: 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.real-world-card {
+  overflow: hidden;
+  text-align: left;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.real-world-header { padding: 1.35rem 1.6rem 1rem; }
+.real-world-header h3 {
+  margin: 0 0 0.55rem;
+  color: var(--brand-light);
+  font: 600 1.25rem/1.35 'Google Sans', 'Noto Sans', sans-serif;
+}
+.real-world-header .real-world-question {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 1.03rem;
+  line-height: 1.55;
+}
+.real-world-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #000;
+}
+.real-world-evaluation { padding: 1.25rem 1.6rem 1.4rem; }
+.real-world-evaluation p {
+  margin: 0 0 0.75rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+.real-world-evaluation p:last-of-type { margin-bottom: 0; }
+.real-world-evaluation strong {
+  display: inline-block;
+  min-width: 124px;
+  color: var(--text-strong);
+}
+.real-world-evaluation .real-world-correct { color: #8ddcc1; font-weight: 600; }
+.real-world-actions {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+.real-world-actions summary { cursor: pointer; color: var(--brand-light); }
+.real-world-actions p { margin: 0.55rem 0 0; font-size: 0.88rem; color: var(--text-muted); }
+@media (max-width: 640px) {
+  .real-world-header { padding: 1.1rem 1.1rem 0.8rem; }
+  .real-world-evaluation { padding: 1rem 1.1rem 1.2rem; }
+  .real-world-evaluation strong { min-width: 0; margin-right: 0.3rem; }
+}
+
 </style>
 </head>
 
@@ -1116,6 +1185,75 @@ perception nor more embodied interaction alone closes the gap.
 </div>
 </section>
 
+
+<!-- REAL-WORLD EXPERIMENTS -->
+<section class="section hero is-light" id="real-world-experiments">
+<div class="container is-max-desktop">
+  <h2 class="title is-3 has-text-centered">Real-World Experiments</h2>
+  <p class="real-world-intro">Three real-world examples of embodied spatial reasoning, showing the agent's exploration and its final responses.</p>
+  <div class="real-world-experiments">
+  <article class="real-world-card">
+    <div class="real-world-header">
+      <h3>Spatial Distance</h3>
+      <p class="real-world-question"><strong>Question:</strong> Which cube is closer to the cup? The green one or the blue one?</p>
+    </div>
+    <video class="real-world-video" controls playsinline preload="metadata" aria-label="Real-world experiment: Spatial Distance">
+      <source src="static/vids/real_world_experiments/spatial_distance.mp4" type="video/mp4" />
+      Your browser does not support MP4 video playback.
+    </video>
+    <div class="real-world-evaluation">
+      <p><strong>Model Answer:</strong> The blue one.</p>
+      <p><strong>Model Reasoning:</strong> I&#x27;ve moved closer to take a look. The blue one is closer.</p>
+      <p><strong>Correct Answer:</strong> <span class="real-world-correct">The green one.</span></p>
+      <details class="real-world-actions">
+        <summary>Agent action sequence</summary>
+        <p>Move right, move left, move left, move left, move forward, move forward, move up, move up, move up, move left, move left, move forward.</p>
+      </details>
+    </div>
+  </article>
+
+  <article class="real-world-card">
+    <div class="real-world-header">
+      <h3>Geometric Configuration</h3>
+      <p class="real-world-question"><strong>Question:</strong> Do the three cups form an equilateral triangle?</p>
+    </div>
+    <video class="real-world-video" controls playsinline preload="metadata" aria-label="Real-world experiment: Geometric Configuration">
+      <source src="static/vids/real_world_experiments/geometric_configuration.mp4" type="video/mp4" />
+      Your browser does not support MP4 video playback.
+    </video>
+    <div class="real-world-evaluation">
+      <p><strong>Model Answer:</strong> No.</p>
+      <p><strong>Model Reasoning:</strong> Looking from the top, they don&#x27;t form an equilateral triangle.</p>
+      <p><strong>Correct Answer:</strong> <span class="real-world-correct">Yes.</span></p>
+      <details class="real-world-actions">
+        <summary>Agent action sequence</summary>
+        <p>Move left × 4, move forward × 4, turn left × 2, turn right × 5, move up × 5, move left × 2, move forward × 2.</p>
+      </details>
+    </div>
+  </article>
+
+  <article class="real-world-card">
+    <div class="real-world-header">
+      <h3>Counting with Occlusion</h3>
+      <p class="real-world-question"><strong>Question:</strong> How many cups are there in the kitchen?</p>
+    </div>
+    <video class="real-world-video" controls playsinline preload="metadata" aria-label="Real-world experiment: Counting with Occlusion">
+      <source src="static/vids/real_world_experiments/counting_with_occlusion.mp4" type="video/mp4" />
+      Your browser does not support MP4 video playback.
+    </video>
+    <div class="real-world-evaluation">
+      <p><strong>Model Answer:</strong> 2.</p>
+      <p><strong>Model Reasoning:</strong> I see one white cup on the table and an orange one by the sink. Looking around, I don&#x27;t see any other cups.</p>
+      <p><strong>Correct Answer:</strong> <span class="real-world-correct">4.</span></p>
+      <details class="real-world-actions">
+        <summary>Agent action sequence</summary>
+        <p>Turn right × 4, turn left, back off, move forward × 5, move up, turn left × 5, turn right × 2, turn left × 3, move forward, move up, back off, turn left × 10.</p>
+      </details>
+    </div>
+  </article>
+  </div>
+</div>
+</section>
 
 <!-- FOOTER -->
 <footer class="footer">
